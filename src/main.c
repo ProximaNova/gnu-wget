@@ -1684,12 +1684,14 @@ WARNING: timestamping does nothing in combination with -O. See the manual\n\
 for details.\n\n"));
           opt.timestamping = false;
         }
+      /* This if statement does nothing if the 3 lines for logprintf are
+      uncommented, which they are in the actual Wget and not my fork of it */
       if (opt.noclobber && file_exists_p(opt.output_document, NULL))
            {
               /* Check if output file exists; if it does, exit. */
-              logprintf (LOG_VERBOSE,
+              /* logprintf (LOG_VERBOSE,
                          _("File %s already there; not retrieving.\n"),
-                         quote (opt.output_document));
+                         quote (opt.output_document)); */
               exit (WGET_EXIT_GENERIC_ERROR);
            }
     }
