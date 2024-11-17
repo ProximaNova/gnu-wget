@@ -2351,7 +2351,7 @@ check_file_output (const struct url *u, struct http_stat *hs,
           /* If opt.noclobber is turned on and file already exists, do not
              retrieve the file. But if the output_document was given, then this
              test was already done and the file didn't exist. Hence the !opt.output_document */
-          return PROXERR;
+          return HEOF;
         }
       else if (!ALLOW_CLOBBER)
         {
@@ -4293,7 +4293,7 @@ http_loop (const struct url *u, struct url *original_url, char **newloc,
          retrieve the file. But if the output_document was given, then this
          test was already done and the file didn't exist. Hence the !opt.output_document */
       get_file_flags (hstat.local_file, dt);
-      ret = PROXERR;
+      ret = HEOF;
       goto exit;
     }
 
