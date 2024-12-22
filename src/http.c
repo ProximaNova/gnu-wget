@@ -1637,7 +1637,7 @@ get_file_flags (const char *filename, int *dt)
   logprintf (LOG_VERBOSE, _("\
 File %s already there; not retrieving.\n\n"), quote (filename));
   /* If the file is there, we suppose it's retrieved OK.  */
-  *dt |= RETROKF;
+  //*dt |= RETROKF; // commented out, see RETGENERR
 
   /* #### Bogusness alert.  */
   /* If its suffix is "html" or "htm" or similar, assume text/html.  */
@@ -2351,7 +2351,7 @@ check_file_output (const struct url *u, struct http_stat *hs,
           /* If opt.noclobber is turned on and file already exists, do not
              retrieve the file. But if the output_document was given, then this
              test was already done and the file didn't exist. Hence the !opt.output_document */
-          return HEOF;
+          return RETRUNNEEDED;
         }
       else if (!ALLOW_CLOBBER)
         {
@@ -4293,7 +4293,7 @@ http_loop (const struct url *u, struct url *original_url, char **newloc,
          retrieve the file. But if the output_document was given, then this
          test was already done and the file didn't exist. Hence the !opt.output_document */
       get_file_flags (hstat.local_file, dt);
-      ret = HEOF;
+      ret = RETGENERR;
       goto exit;
     }
 
@@ -4515,7 +4515,7 @@ http_loop (const struct url *u, struct url *original_url, char **newloc,
           goto exit;
         case RETRUNNEEDED:
           /* The file was already fully retrieved. */
-          ret = RETROK;
+          ret = RETGENERR; // was RETROK
           goto exit;
         case RETRFINISHED:
           /* Deal with you later.  */
