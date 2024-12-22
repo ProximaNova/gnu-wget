@@ -38,6 +38,8 @@ get_status_for_err (uerr_t err)
 {
   switch (err)
     {
+    case RETGENERR: // added
+      return WGET_EXIT_GENERIC_ERROR; //added
     case RETROK:
       return WGET_EXIT_SUCCESS;
     case FOPENERR: case FOPEN_EXCL_ERR: case FWRITEERR: case WRITEFAILED:
